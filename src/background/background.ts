@@ -17,6 +17,9 @@ const fetchAsUnicode = async (req: IFetchMessageRequest): Promise<string> => {
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
   try {
     const res = await fetch(buildURL(req.url, req.params), { signal: controller.signal })
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`)
+    }
     const buf = await res.arrayBuffer()
     const codes = new Uint8Array(buf)
     const encoding = Encoding.detect(codes)
