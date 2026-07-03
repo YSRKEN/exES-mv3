@@ -8,6 +8,6 @@
         { "header": "Access-Control-Allow-Origin", "operation": "append", "value": "*" }
       ]
     },
-    "condition": { "urlFilter": "*://*.amazon.*/*", "resourceTypes": ["xmlhttprequest", "other"] }
+    "condition": { "urlFilter": "*://*.dlsite.com/*", "resourceTypes": ["xmlhttprequest", "other"] }
   }
 ]
