@@ -10,7 +10,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "encoding-japanese": "^2.2.0",
     "lit-html": "^1.4.1"
   },
