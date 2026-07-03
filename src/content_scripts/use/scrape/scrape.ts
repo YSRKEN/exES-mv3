@@ -30,14 +30,17 @@ export const getJANCodeWithAssociatedPrice = async (url: URL): Promise<ResultRes
       return null
     }
     const janWithGetchu = await scrapeGetchu(id)
-    const responses = await Promise.all([
-      scrapeSurugaya(janWithGetchu.janCode),
-      scrapeSofmap(janWithGetchu.janCode)
-    ])
     const result: ResultResponse[] = []
     result.push(janWithGetchu.getchu)
-    result.push(...responses[0])
-    result.push(...responses[1])
+    const janCode = janWithGetchu.janCode
+    if (janCode.length === 13 || janCode.length === 8) {
+      const responses = await Promise.all([
+        scrapeSurugaya(janCode),
+        scrapeSofmap(janCode)
+      ])
+      result.push(...responses[0])
+      result.push(...responses[1])
+    }
     return result
   } catch (e) {
     console.error(e)
