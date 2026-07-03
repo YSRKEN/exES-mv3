@@ -4,7 +4,7 @@ import { IFetchMessageRequest, IFetchMessageResult } from '../utils'
 
 // @ts-ignore
 chrome.runtime.onMessage.addListener(
-  (req: IFetchMessageRequest, _: () => void, onSuccess: (res: IFetchMessageResult) => void) => {
+  (req: IFetchMessageRequest, _: chrome.runtime.MessageSender, onSuccess: (res: IFetchMessageResult) => void) => {
     try {
       console.log(req)
       axios({
@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(
         onSuccess({ type: 'success', body: body })
       }).catch(e => onSuccess({ type: 'error', body: e }))
     } catch (e) {
-      onSuccess({ type: 'error', body: e })
+      onSuccess({ type: 'error', body: e as Error })
     }
     return true
   }

@@ -67,10 +67,6 @@
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": [
-    "src/*"
-, "src/content_scripts/components", "src/content_scripts/components/item.ts", "src/content_scripts/content_scripts.ts", "src/content_scripts/use/edit_distance.ts", "src/content_scripts/use/request.ts", "src/content_scripts/store.ts", "src/content_scripts/use/scrape/scrape.ts", "src/content_scripts/use/utils.ts"  ],
-  "exclude": [
-    "/"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
