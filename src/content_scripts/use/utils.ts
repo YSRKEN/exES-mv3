@@ -20,7 +20,7 @@ export const getDlsiteRequestURL = (url: URL) => {
   const paths = url.pathname.split("/")
   const id = paths[paths.length - 1].replace(".html", "")
   if (paths.length < 2) return ""
-  return `${url.origin}/${paths[1]}/product/info/ajax?product_id=${id}?cdn_cache_min=1`
+  return `${url.origin}/${paths[1]}/product/info/ajax?product_id=${id}&cdn_cache_min=1`
 }
 
 export const sleep = (msec: number) => new Promise<void>(resolve => setTimeout(resolve, msec));

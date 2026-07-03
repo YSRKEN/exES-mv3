@@ -17,7 +17,7 @@ describe('getDlsiteRequestURL', () => {
   it('builds the ajax info URL from a product page URL', () => {
     const url = new URL('https://www.dlsite.com/maniax/work/=/product_id/RJ123456.html')
     expect(getDlsiteRequestURL(url)).toBe(
-      'https://www.dlsite.com/maniax/product/info/ajax?product_id=RJ123456?cdn_cache_min=1'
+      'https://www.dlsite.com/maniax/product/info/ajax?product_id=RJ123456&cdn_cache_min=1'
     )
   })
 })
