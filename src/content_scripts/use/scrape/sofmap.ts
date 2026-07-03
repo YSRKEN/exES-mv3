@@ -4,11 +4,12 @@ import { getNumber, ResultResponse } from './scrape'
 /**
  * Parse a Sofmap product_list_parts.aspx response for a JAN search.
  *
- * Endpoint: https://a.sofmap.com/product_list_parts.aspx?styp=p_bar&keyword=<JAN>
- * NOTE: Adult-category products (virtually all eroge) are hidden behind a
- * session-cookie gate set by xt_adult_confirm.aspx.  scrapeSofmap fires that
- * request first as a best-effort side-effect; actual availability depends on
- * whether the browser's cookie store is shared with the service worker.
+ * Endpoint: https://a.sofmap.com/product_list_parts.aspx?styp=p_bar&keyword=<JAN>&aac=on
+ * NOTE: Adult-category products (virtually all eroge) are hidden behind an
+ * adult gate, but the `aac=on` query param bypasses it cookie-free (verified
+ * 2026-07-04) — the same approach as Getchu's `?gc=gc`. No session cookie or
+ * preflight is needed, which matters because the MV3 service-worker fetch does
+ * not share the browser cookie jar for cross-site requests.
  *
  * Selectors verified 2026-07-04 against a.sofmap.com:
  *   Product card: ul#change_style_list > li
@@ -55,17 +56,10 @@ export const parseSofmap = (html: string, jan: string): ResultResponse[] => {
 
 const scrapeSofmap = async (jan: string): Promise<ResultResponse[]> => {
   try {
-    // Fire-and-forget adult confirmation — sets a session cookie on
-    // a.sofmap.com so the subsequent fetch sees adult-category products.
-    // Ignored on error (e.g. if the service worker cannot share cookies).
-    await backgroundFetch({
-      url: 'https://a.sofmap.com/xt_adult_confirm.aspx',
-      params: { url: `/product_list_parts.aspx?styp=p_bar&keyword=${jan}` }
-    }).catch(() => undefined)
-
+    // `aac=on` bypasses the adult gate cookie-free (no preflight needed).
     const body = await backgroundFetch({
       url: 'https://a.sofmap.com/product_list_parts.aspx',
-      params: { styp: 'p_bar', keyword: jan }
+      params: { styp: 'p_bar', keyword: jan, aac: 'on' }
     })
     return parseSofmap(body, jan)
   } catch (e) {
