@@ -44,3 +44,12 @@ Open `chrome://extensions` (or `brave://extensions`), enable Developer mode,
 Steam is **not supported** — the original exES never scraped Steam, and EGS
 Steam-only titles have no supported shop link (out of scope; a possible future
 feature).
+
+### Privacy note
+
+The background fetch uses `credentials:'include'`, so on each ErogameScape game
+page the extension sends **your browser's cookies for the shop hosts** it
+queries (amazon.co.jp, getchu.com, sofmap.com, suruga-ya.jp, dmm.co.jp,
+dlsite.com). This restores the original MV2 behaviour and is required for
+cookie-gated pages (e.g. Amazon adult titles). No cookies are read by the
+extension or sent anywhere else; each request goes only to the shop it targets.

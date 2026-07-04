@@ -29,10 +29,12 @@ const collectOfferPrices = (value: unknown): number[] => {
  * Returns 0 when neither source is found (e.g. age-gate page, product removed).
  *
  * NOTE: The DMM age gate (302 redirect to /age_check/) is handled by the DNR
- * rule in public/fanza_rule.json (rule id 111112), which injects the
- * `age_check_done=1` cookie on all requests to *.dmm.co.jp. This requires the
- * host permission `*://*.dmm.co.jp/*` (already declared in manifest.json) and
- * NEEDS LIVE IN-BROWSER VERIFICATION — Chrome's DNR `modifyHeaders` may treat
+ * rule in public/fanza_rule.json (rule id 111112), which APPENDS
+ * `age_check_done=1` to the Cookie header on requests to *.dmm.co.jp. `append`
+ * (not `set`) is used so it does not clobber the user's own DMM session cookies
+ * on their unrelated browsing XHRs — it only adds the age flag. This requires
+ * the host permission `*://*.dmm.co.jp/*` (already declared in manifest.json).
+ * Live-verified working in Brave 2026-07-04 — Chrome's DNR `modifyHeaders` may treat
  * the Cookie request header as a forbidden header and silently drop the
  * injection (see https://crbug.com/1141632). If the DNR cookie rule does not
  * work, parseFanza will receive the age-gate HTML and return 0 gracefully.

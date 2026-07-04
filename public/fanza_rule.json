@@ -16,7 +16,7 @@
     "action": {
       "type": "modifyHeaders",
       "requestHeaders": [
-        { "header": "Cookie", "operation": "set", "value": "age_check_done=1" }
+        { "header": "Cookie", "operation": "append", "value": "age_check_done=1" }
       ]
     },
     "condition": { "urlFilter": "||dmm.co.jp/", "resourceTypes": ["xmlhttprequest", "other"] }
