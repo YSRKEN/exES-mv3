@@ -16,7 +16,17 @@ const fetchAsUnicode = async (req: IFetchMessageRequest): Promise<string> => {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
   try {
-    const res = await fetch(buildURL(req.url, req.params), { signal: controller.signal })
+    // credentials:'include' restores the MV2 background-XHR behaviour of sending
+    // the user's cookies to shop domains. It is required for shops that gate
+    // content behind the user's own session — notably Amazon's adult "black
+    // curtain" (the price is only returned when the user's age-eligibility
+    // cookie is sent). The extension has host_permissions for every fetched
+    // host, so the service-worker request is exempt from CORS regardless of the
+    // ACAO response-header DNR rules.
+    const res = await fetch(buildURL(req.url, req.params), {
+      signal: controller.signal,
+      credentials: 'include'
+    })
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}`)
     }
