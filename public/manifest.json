@@ -1,6 +1,6 @@
 {
   "name": "exES",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "1.0.0",
   "description": "A chrome extention in ErogameScape. This allow you to overview price in some website.",
   "icons": {
@@ -15,10 +15,12 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "permissions": [
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
     "*://erogamescape.dyndns.org/*",
     "*://*.amazon.jp/*",
     "*://*.amazon.co.jp/*",
@@ -26,41 +28,16 @@
     "*://*.sofmap.com/*",
     "*://*.suruga-ya.jp/*",
     "*://*.dmm.co.jp/*",
-    "*://*.dlsite.com/*",
-    "declarativeNetRequest"
+    "*://*.dlsite.com/*"
   ],
   "declarative_net_request": {
     "rule_resources": [
-      {
-        "id": "amazon",
-        "enabled": true,
-        "path": "amazon_rule.json"
-      },
-      {
-        "id": "getchu",
-        "enabled": true,
-        "path": "getchu_rule.json"
-      },
-      {
-        "id": "sofmap",
-        "enabled": true,
-        "path": "sofmap_rule.json"
-      },
-      {
-        "id": "surugaya",
-        "enabled": true,
-        "path": "surugaya_rule.json"
-      },
-      {
-        "id": "dlsite",
-        "enabled": true,
-        "path": "dlsite_rule.json"
-      },
-      {
-        "id": "fanza",
-        "enabled": true,
-        "path": "fanza_rule.json"
-      }
+      { "id": "amazon", "enabled": true, "path": "amazon_rule.json" },
+      { "id": "getchu", "enabled": true, "path": "getchu_rule.json" },
+      { "id": "sofmap", "enabled": true, "path": "sofmap_rule.json" },
+      { "id": "surugaya", "enabled": true, "path": "surugaya_rule.json" },
+      { "id": "dlsite", "enabled": true, "path": "dlsite_rule.json" },
+      { "id": "fanza", "enabled": true, "path": "fanza_rule.json" }
     ]
   }
 }
