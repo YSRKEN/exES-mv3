@@ -1,0 +1,170 @@
+﻿
+
+	<section class="list_settings">
+		<form action="/product_list.aspx" method="get" name="search">
+<input type="hidden" name="keyword" value="4933032011415">
+<input type="hidden" name="product_type" value="ALL">
+
+		<input type="hidden" name="styp" value="p_srt">
+
+			<dl>
+				<dt>並び順：</dt>
+				<dd>
+					<select name="order_by" onchange="submit(this.form);">
+						<option value="DEFAULT" >おすすめ順</option>
+						<option value="SALES_DESC" >売り上げ順</option>
+						<option value="PRICE_ASC" >価格の安い順</option>
+						<option value="PRICE_DESC" >価格の高い順</option>
+						<option value="NAME_ASC" >商品名順</option>
+						<option value="MAKER_ASC" >メーカー名順</option>
+
+						<option value="DATE_DESC" >発売日が新しい順</option>
+						<option value="DATE_ASC" >発売日が古い順</option>
+					</select>
+				</dd>
+			</dl>
+			<dl class="zaiko_select">
+				<dt>在庫表示：</dt>
+				<dd>
+					<select name="stk_flg" class="zaiko" onchange="submit(this.form);">
+						<option value="">全ての商品</option>
+						<option value="1" >注文可能な商品のみ</option>
+						<option value="2" >在庫のある商品のみ</option>
+					</select>
+				</dd>
+			</dl>
+			<dl class="count_select">
+				<dt>表示件数：</dt>
+				<dd>
+					<select name="dispcnt" onchange="submit(this.form);">
+						<option value="24"  selected>24</option>
+						<option value="50" >50</option>
+						<option value="100" >100</option>
+					</select>
+					件
+				</dd>
+				<dd class="list_style column active"><img src="https://a.sofmap.com/images/static/img/ic_list_on_horizontal.svg" alt=""></dd>
+				<dd class="list_style"><img src="https://a.sofmap.com/images/static/img/ic_list_vertical.svg" alt=""></dd>
+			</dl>
+		</form>
+	</section>
+
+
+	<section class="paging_settings">
+		<p class="pg_number_set">
+		
+				<span>1</span>件 
+			
+					(全5点)<br>
+			
+				<i>1</i>件から<i>1</i>件まで表示
+		
+		</p>
+		<ol class="paging_bl">
+		<li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_l_double_gry.svg"></a></li><li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_l_single_gry.svg"></a></li><li><a href="#" class="current">1</a></li><li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_r_single_gry.svg"></a></li>
+		
+		</ol>
+
+	</section>
+				<ul id="change_style_list" class="product_list flexcartbtn ftbtn">
+					<input type="hidden" name="product_type" value="ALL" />
+<script language="JavaScript"><!--
+var listItemSku=[];
+
+var listItem=[];
+// --></script>
+
+					<li >
+					<div class="mainbox">
+						<a href="https://a.sofmap.com/product_detail.aspx?sku=22703751" class="itemimg">
+
+
+							<img src="https://image.sofmap.com/images/product/large/4933032011415.jpg" alt="ゲーム（＝エロゲー）みたいな、ステキな恋がしたいっ！ 【sof001】" decoding="async" loading="lazy">
+						</a>
+                        <div class="icon-box"><span class="ic item-type r18">R18</span></div>
+						<span class="brand">裸足少女</span>
+						<span class="brand brand_type_list" style="display:none;">裸足少女</span>
+						<a href="https://a.sofmap.com/product_detail.aspx?sku=22703751" class="product_name">ゲーム（＝エロゲー）みたいな、ステキな恋がしたいっ！ 【sof001】</a>
+						<a href="https://a.sofmap.com/product_detail.aspx?sku=22703751" class="product_name product_name_type_list" style="display:none;">ゲーム（＝エロゲー）みたいな、ステキな恋がしたいっ！ 【sof001】</a>
+						<div class="item_label">
+							
+						</div>
+
+
+						<span class="price"><strong>&yen;8,980<i>(税込)</i></strong></span>
+
+
+						<span class="point">90ポイントサービス </strong></span>
+
+
+						<span class="date">発売日：2022/02/25発売</span>
+
+
+					<div class="stock_review-box">
+						<!-- stock_disp_id : OUT_OF_LIMIT_STOCK --><span class="ic stock limited">数量限定</span>
+
+					</div><!-- //end stock_review-box -->
+
+
+
+
+				</div><!-- //end mainbox -->
+				<div class="footbox">
+				<div class="used_box txt newitem4933032011415">
+
+							<a href="/search_result.aspx?product_type=USED&new_jan=4933032011415&styp=p_bar&keyword=4933032011415">中古商品が計4点あります<span class="price-txt">&yen;3,480<i>(税込)～</i></span></a>
+
+						</div>
+						</div><!-- //end footbox -->
+
+					</li>
+
+<script language="JavaScript"><!--
+if(listItemSku.length > 0)
+{
+	var intCountNewItem = 0;
+	var strNewItemCallUrl = "/product_newitem.aspx?new_jan=";
+	var strNewItem = "";
+	jQuery.each(listItemSku,function(item){
+		strNewItem += listItemSku[item] + ",";
+		intCountNewItem++;
+		if(intCountNewItem >= 20)
+		{
+			strNewItem = strNewItem.slice(0,-1);
+			jQuery.post(strNewItemCallUrl + strNewItem, "",function(response){setNewItemLink(response)},"json");
+			intCountNewItem = 0;
+			strNewItem = "";
+		}
+	});
+	if(strNewItem != "")
+	{
+		strNewItem = strNewItem.slice(0,-1);
+		jQuery.post(strNewItemCallUrl + strNewItem, "",function(response){setNewItemLink(response)},"json");
+	}
+
+	function setNewItemLink(json)
+	{
+		jQuery.each(json, function(item, json){
+			jQuery(".newitem"+item).prepend('<a href="' + json.url + '">新品商品はこちら</a>');
+		});
+	}
+}
+// --></script>
+				</ul>
+	<section class="paging_settings">
+		<p class="pg_number_set">
+		
+				<span>1</span>件 
+			
+					(全5点)<br>
+			
+				<i>1</i>件から<i>1</i>件まで表示
+		
+		</p>
+		<ol class="paging_bl">
+		<li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_l_double_gry.svg"></a></li><li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_l_single_gry.svg"></a></li><li><a href="#" class="current">1</a></li><li><a><img src="https://a.sofmap.com/images/static_a/img/pgarw_r_single_gry.svg"></a></li>
+		
+		</ol>
+
+	</section>
+	
