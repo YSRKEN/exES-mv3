@@ -11,6 +11,16 @@ export const getASINFromAmazonURL = (url: URL) => {
   return paths[beforeTargetIndex + 1]
 }
 
+export const getSteamAppId = (url: URL) => {
+  const paths = url.pathname.split("/")
+  const idx = paths.findIndex(v => v === "app")
+  if (idx === -1 || idx + 1 >= paths.length) {
+    return ""
+  }
+  const id = paths[idx + 1]
+  return /^[0-9]+$/.test(id) ? id : ""
+}
+
 export const getDlsiteIDFromURL = (url: URL) => {
   const paths = url.pathname.split("/")
   return paths[paths.length - 1].replace(".html", "")

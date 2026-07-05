@@ -166,6 +166,7 @@ export interface ExternalLinks {
   getchu?: URL
   dlsite?: URL
   fanza?: URL
+  steam?: URL
 }
 
 export const getExternalLinks = () => {
@@ -188,6 +189,9 @@ export const getExternalLinks = () => {
     }
     if (link.innerHTML === "DMM") {
       links.fanza = url
+    }
+    if (link.innerHTML === "STEAM") {
+      links.steam = url
     }
   })
   return links
