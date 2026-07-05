@@ -18,24 +18,24 @@ const regionLocked = JSON.stringify({ '2325740': { success: true, data: { is_fre
 const notFound = JSON.stringify({ '999999999': { success: false } })
 
 describe('parseSteam', () => {
-  it('① discounted: shows list → final and numeric final price', () => {
+  it('① discounted: shows original → sale as bare integers', () => {
     const r = parseSteam(discounted, '2536840')!
     expect(r.title).toBe('Steam')
     expect(r.price).toBe(1966)
-    expect(r.priceText).toBe('¥ 3,278 → ¥ 1,966')
+    expect(r.priceText).toBe('3278 → 1966')
     expect(r.priceURL).toBe('https://store.steampowered.com/app/2536840/')
   })
 
-  it('① no discount: shows final_formatted only', () => {
+  it('① no discount: bare numeric price, no priceText', () => {
     const r = parseSteam(noDiscount, '1637320')!
     expect(r.price).toBe(2000)
-    expect(r.priceText).toBe('¥ 2,000')
+    expect(r.priceText).toBeUndefined()
   })
 
-  it('③ free game: price 0 with ¥ 0', () => {
+  it('③ free game: price 0 with 無料', () => {
     const r = parseSteam(free, '570')!
     expect(r.price).toBe(0)
-    expect(r.priceText).toBe('¥ 0')
+    expect(r.priceText).toBe('無料')
     expect(r.priceURL).toBe('https://store.steampowered.com/app/570/')
   })
 

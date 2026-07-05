@@ -4,6 +4,7 @@ import { ResultResponse } from './scrape'
 const storeURL = (appId: string) => `https://store.steampowered.com/app/${appId}/`
 
 interface ISteamPriceOverview {
+  initial: number
   final: number
   discount_percent: number
   initial_formatted: string
@@ -39,15 +40,19 @@ export const parseSteam = (body: string, appId: string): ResultResponse | null =
   const po = appData?.price_overview
 
   if (po) {
+    // Unified display: bare integer yen (no ¥, no comma). initial/final are yen×100.
     const price = Math.round(po.final / 100)
-    const priceText = po.discount_percent > 0
-      ? `${po.initial_formatted} → ${po.final_formatted}`
-      : po.final_formatted
-    return { ...base, price, priceText }
+    if (po.discount_percent > 0) {
+      const original = Math.round(po.initial / 100)
+      return { ...base, price, priceText: `${original} → ${price}` }
+    }
+    // No discount: leave priceText unset so the numeric price renders,
+    // identical to every other shop.
+    return { ...base, price }
   }
 
   if (appData?.is_free === true) {
-    return { ...base, price: 0, priceText: '¥ 0' }
+    return { ...base, price: 0, priceText: '無料' }
   }
 
   return { ...base, price: 0, priceText: '価格取得不可' }
