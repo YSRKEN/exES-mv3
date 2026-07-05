@@ -1,55 +1,58 @@
-# exES (Manifest V3 migration)
+# exES-mv3
 
-A Chrome/Brave extension for [ErogameScape](https://erogamescape.dyndns.org/)
-that overlays price comparisons from Amazon / Getchu / Sofmap / Suruga-ya /
-DMM(FANZA) / DLsite and past sale campaigns onto a game page.
+English | [日本語](README.ja.md)
 
-This is a Manifest V3 migration of the original **[ryoha000/exES](https://github.com/ryoha000/exES)**
-(MIT). The original targeted Manifest V2, which the latest Brave/Chrome no
-longer load. Credit for the original design and scraping/UI logic goes to
-ryoha000.
+A Chrome / Brave extension (Manifest V3) for [ErogameScape](https://erogamescape.dyndns.org/)
+that overlays shop price comparisons and past sale campaigns onto each game page.
 
-## Build
+This project started from [ryoha000/exES](https://github.com/ryoha000/exES) (MIT),
+which targeted Manifest V2 and no longer loads on current browsers. This fork
+migrates the platform to Manifest V3, rebuilds every shop scraper against the
+shops' current sites, and adds Steam support. Credit for the original design
+and UI goes to ryoha000.
 
-```
-npm install
-npm run build      # outputs dist/
-```
-
-## Load
-
-Open `chrome://extensions` (or `brave://extensions`), enable Developer mode,
-"Load unpacked", and select the `dist/` directory.
-
-## Status
-
-- **Phase A — MV3 platform migration:** done. `manifest_version 3`, background
-  service worker, `host_permissions`, and the background fetch rewritten from
-  axios/XHR to `fetch` (with `credentials:'include'` to restore MV2's behaviour
-  of sending the user's cookies to shop domains). See `docs/superpowers/plans/`.
-- **Phase B — per-shop scraper repair:** done. Repaired against each shop's
-  current site and verified live in Brave (2026-07-04).
-
-### Per-shop status
+## Supported shops
 
 | Shop | Status | Notes |
 |------|--------|-------|
-| Getchu | ✅ working | `/item/{id}/?gc=gc` (age gate bypassed by `gc=gc`); JAN + JSON-LD price |
-| Suruga-ya | ✅ working | redesigned Bootstrap search cards; used/new prices |
-| Sofmap | ✅ working | `product_list_parts.aspx?...&aac=on` (adult gate bypassed by `aac=on`) |
-| DLsite | ✅ working | product-info ajax JSON (`price`) |
-| FANZA (DMM) | ✅ working | JSON-LD price; DMM age gate bypassed by a DNR rule that injects `age_check_done=1` |
-| Amazon | ⚠️ code-ready, no data | Scraper repaired (`/dp/{asin}` + `.a-offscreen`, adult titles unlocked via the user's cookies), but **ErogameScape no longer publishes Amazon links** on game pages, so no Amazon price appears in practice. Kept working in case EGS restores the `/ASIN/` links. |
+| Getchu | ✅ | JAN code + JSON-LD price |
+| Suruga-ya | ✅ | new / used prices |
+| Sofmap | ✅ | new / used prices |
+| DLsite | ✅ | product-info API |
+| FANZA (DMM) | ✅ | age gate handled via a declarativeNetRequest rule |
+| Steam | ✅ | official appdetails API; sales show as `3278 → 1966`, free games as `無料` |
+| Amazon | ⚠️ | scraper works, but ErogameScape no longer publishes Amazon links, so it does not trigger in practice |
 
-Steam is **not supported** — the original exES never scraped Steam, and EGS
-Steam-only titles have no supported shop link (out of scope; a possible future
-feature).
+Past sale campaigns (過去のキャンペーン) are also listed, fetched from
+ErogameScape itself.
 
-### Privacy note
+## Install (load unpacked)
 
-The background fetch uses `credentials:'include'`, so on each ErogameScape game
-page the extension sends **your browser's cookies for the shop hosts** it
-queries (amazon.co.jp, getchu.com, sofmap.com, suruga-ya.jp, dmm.co.jp,
-dlsite.com). This restores the original MV2 behaviour and is required for
-cookie-gated pages (e.g. Amazon adult titles). No cookies are read by the
-extension or sent anywhere else; each request goes only to the shop it targets.
+```
+npm install
+npm run build   # outputs dist/
+```
+
+Open `chrome://extensions` (or `brave://extensions`), enable **Developer mode**,
+click **Load unpacked**, and select the `dist/` directory.
+
+## Development
+
+```
+npm test            # vitest unit tests (parsers are fixture-tested offline)
+npm run typecheck   # tsc --noEmit
+npm run build       # webpack → dist/
+```
+
+## Privacy note
+
+The background fetch uses `credentials:'include'`, so the extension sends
+**your browser's cookies for the shop hosts it queries** (amazon.co.jp,
+getchu.com, sofmap.com, suruga-ya.jp, dmm.co.jp, dlsite.com,
+store.steampowered.com). This matches the original MV2 behaviour and is
+required for cookie-gated pages (e.g. Amazon adult titles). Requests go only
+to the shop they target; the extension collects nothing.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Original work © 2021 ryoha000.
