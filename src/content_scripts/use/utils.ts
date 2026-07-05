@@ -28,10 +28,13 @@ export const sleep = (msec: number) => new Promise<void>(resolve => setTimeout(r
 export const convertPriceInfosToRowInfos = (pis: PriceInfo[]) => {
   const rowInfos: RowInfo[] = []
   for (const pi of pis) {
-    if (!pi.price) continue
+    // Keep a row when it has a numeric price OR a display-only priceText
+    // (Steam's free "¥ 0" and region-locked "価格取得不可" rows). Only Steam
+    // sets priceText, so other shops' "hide price 0" behaviour is unchanged.
+    if (!pi.price && !pi.priceText) continue
     rowInfos.push([
       { text: pi.title, url: pi.titleURL },
-      { text: pi.price, url: pi.priceURL }
+      { text: pi.priceText ?? pi.price, url: pi.priceURL }
     ])
   }
   return rowInfos

@@ -15,6 +15,7 @@ export interface ResultResponse {
   price: number
   titleURL?: string
   priceURL?: string
+  priceText?: string
 }
 
 export interface JANCodeWithAssociatedPrices {
