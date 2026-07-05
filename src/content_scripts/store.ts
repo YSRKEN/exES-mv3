@@ -10,6 +10,7 @@ export interface PriceInfo {
   titleURL?: string
   price: number
   priceURL?: string
+  priceText?: string
 }
 
 export interface SaleInfo {

@@ -28,7 +28,8 @@
     "*://*.sofmap.com/*",
     "*://*.suruga-ya.jp/*",
     "*://*.dmm.co.jp/*",
-    "*://*.dlsite.com/*"
+    "*://*.dlsite.com/*",
+    "*://store.steampowered.com/*"
   ],
   "declarative_net_request": {
     "rule_resources": [
